@@ -1,3 +1,5 @@
+"use strict";
+
 // 定义 chat box 全局变量
 var myApp, myMessages, myMessagebar;
 
@@ -22,6 +24,9 @@ function init_chat_box(){
     
     // 初始化 Framework7 APP
     myApp = new Framework7({
+        // Init model name
+        modalTitle: 'drchat',
+        
         // If it is webapp, we can enable hash navigation:
         pushState: true,
 
