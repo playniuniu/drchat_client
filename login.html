@@ -1,0 +1,50 @@
+<!-- Navbar on about page -->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="center sliding">Drchat</div>
+    </div>
+</div>
+
+<div data-page="login-screen" class="page no-toolbar no-swipeback">
+    <div class="page-content login-screen-content">
+        <div class="login-screen-title">Drchat</div>
+        <form id="login-form" onsubmit="return submitLogin()">
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-name"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">用户名</div>
+                                <div class="item-input">
+                                    <input id="username" name="username" type="text" placeholder="请输入用户名">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-form-password"></i></div>
+                            <div class="item-inner">
+                                <div class="item-title label">密码</div>
+                                <div class="item-input">
+                                    <input id="password" name="password" type="password" placeholder="请输入密码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <div class="row">
+                    <div class="col-50">
+                        <input id="cancel-login" type="submit" value="取消" class="button">
+                    </div>
+                    <div class="col-50">
+                        <input id="submmit-login" type="submit" value="登陆" class="button active">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
