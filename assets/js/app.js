@@ -17,7 +17,7 @@ function init_chat_box() {
 
         // enable pushState
         pushState: true,
-        pushStateSeparator: "",
+        pushStateSeparator: "#",
 
         // Hide and show indicator during ajax requests
         onAjaxStart: function (xhr) {
@@ -49,5 +49,9 @@ function initPageEvent() {
     
     gApp.onPageInit('chat', function(page) {
        init_chat_page(gApp); 
+    });
+    
+    gApp.onPageBack('chat', function(page) {
+        disconnect_remote();
     });
 }

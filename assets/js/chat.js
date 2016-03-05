@@ -1,7 +1,7 @@
 "use strict";
 
 // 定义变量
-var local_socket;
+var local_socket = null;
 var chat_page_messages, chat_page_messagebar, conversationStarted;
 
 // 初始化 chat 页面
@@ -27,10 +27,23 @@ function init_chat_page(gApp) {
 
 // 连接 socket io
 function connect_to_remote() {
-    var socket_port = 3000;
-    var socket_url = "http://" + document.location.hostname + ":" + socket_port + '/drchat';
-    local_socket = io(socket_url);
-    console.log("Connected to " + socket_url);
+    if(local_socket === null) {
+        var socket_port = 3000;
+        var socket_url = "http://" + document.location.hostname + ":" + socket_port + '/drchat';
+        local_socket = io(socket_url);
+        console.log("Connected to " + socket_url);
+    }
+
+    else {
+        console.log("SocketIO already connect");
+    }
+}
+
+// 断开 socket.io 连接
+function disconnect_remote() {
+    console.log("Disconnecting SockeIO ...");
+    local_socket.disconnect();
+    local_socket = null;
 }
 
 // 处理本地消息
