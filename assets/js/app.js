@@ -43,8 +43,8 @@ function init_chat_box() {
         // Init model name
         modalTitle: 'drchat',
 
-        // If it is webapp, we can enable hash navigation:
-        pushState: true,
+        // disable pushState, seems safari bug
+        pushState: false,
 
         // Hide and show indicator during ajax requests
         onAjaxStart: function (xhr) {
