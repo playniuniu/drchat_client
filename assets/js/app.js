@@ -3,7 +3,7 @@
 var
     $$ = Framework7.$, // 定义 Dom
 
-    myApp, myMessages, myMessagebar, mainView, currentPage, conversationStarted, // 定义全局变量
+    myApp, myMessages, myMessagebar, mainView, myUserName, currentPage, conversationStarted, // 定义全局变量
 
     local_socket; // 定义 socket.io 全局变量
 
@@ -131,13 +131,21 @@ function handle_local_message() {
         if (messageText.length === 0) return;
 
         // Empty messagebar
-        myMessagebar.clear()
+        myMessagebar.clear();
+        
+        var messageSend = {
+            from: getLoginName(),
+            to: "admin",
+            messageFormat: "text",
+            messageTime: Date.now(),
+            messageBody: messageText
+        }
 
         // 将消息发送给远端
-        local_socket.emit("msg", messageText);
+        local_socket.emit("msg", JSON.stringify(messageSend));
 
         // 更新本地消息列表
-        update_message_box(messageText, 'sent');
+        update_message_box(JSON.stringify(messageSend), 'sent');
     });
 
 }
@@ -151,28 +159,32 @@ function handle_remote_message() {
 
 // 更新对话框
 // messageType有 ['sent', 'received'] 两种类型
-function update_message_box(messageText, messageType) {
+function update_message_box(messageJSON, messageType) {
     // 接收的消息的头像和名称
-    var avatar, name;
+    var avatar, showName;
+    var parseMessage = JSON.parse(messageJSON);
 
     if (messageType === 'received') {
         avatar = './assets/images/chat/user_2.png';
-        name = 'Kate';
+        showName = parseMessage.from;
     } else {
         avatar = './assets/images/chat/user_1.png';
+        showName = null;
     }
+    
+    
 
     // Add message
     myMessages.addMessage({
         // Message text
-        text: messageText,
+        text: parseMessage.messageBody,
 
         // 随机消息类型
         type: messageType,
 
         // 头像和名称
         avatar: avatar,
-        name: name,
+        name: showName,
 
         // 日期
         day: !conversationStarted ? 'Today' : false,
@@ -185,7 +197,12 @@ function update_message_box(messageText, messageType) {
 
 // 检测登陆状况
 function checkLogin() {
+    if(myUserName) {
+        return true;
+    }
+    
     var userName = window.localStorage ? localStorage.getItem("userName") : Cookie.read("userName");
+    
     if (userName) {
         return true;
     }
@@ -194,6 +211,10 @@ function checkLogin() {
 
 // 获取登录名
 function getLoginName() {
+    if(myUserName) {
+        return myUserName;
+    }
+    
     return window.localStorage ? localStorage.getItem("userName") : Cookie.read("userName");
 }
 
@@ -204,6 +225,7 @@ function setLogin(userName) {
     } else {
         Cookie.write("userName", userName);
     }
+    myUserName = userName;
 }
 
 // 设置登出
@@ -213,6 +235,7 @@ function setLogout() {
     } else {
         Cookie.write("userName", "");
     }
+    myUserName = null;
 }
 
 // 处理登陆提交
