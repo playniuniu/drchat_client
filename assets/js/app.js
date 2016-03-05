@@ -25,6 +25,9 @@ function init_chat_box() {
 
         // 初始化 Messagebar
         myMessagebar = myApp.messagebar('.messagebar');
+        
+        // 处理 panel 消息
+        handle_panel_message();
 
         // 初始化 socket io
         connect_to_remote();
@@ -60,6 +63,11 @@ function init_chat_box() {
     mainView = myApp.addView(".view-main", {
         dynamicNavbar: true
     });
+    
+    // 初始化 left panel
+    $$('.open-panel').on('click', function (e) {
+        myApp.openPanel('left');
+    });
 
     // 响应 pageInit
     $$(document).on('pageInit', function (e) {
@@ -90,6 +98,15 @@ function init_chat_box() {
     });
 
     myApp.init();
+}
+
+// 
+function handle_panel_message() {
+    $$("#btn-logout").on('click', function(e) {
+        setLogout();
+        myApp.closePanel();
+        mainView.router.loadPage("login.html");
+    });
 }
 
 
@@ -186,6 +203,15 @@ function setLogin(userName) {
         localStorage.setItem("userName", userName);
     } else {
         Cookie.write("userName", userName);
+    }
+}
+
+// 设置登出
+function setLogout() {
+    if (window.localStorage) {
+        localStorage.removeItem("userName");
+    } else {
+        Cookie.write("userName", "");
     }
 }
 
