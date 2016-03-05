@@ -1,14 +1,19 @@
-<!-- Navbar on about page -->
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="center sliding">Drchat</div>
-    </div>
-</div>
+<!-- page -->
+<div data-page="login" class="page navbar-fixed">
 
-<div data-page="login-screen" class="page no-toolbar no-swipeback">
+    <!-- 顶部栏 -->
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left"></div>
+            <div class="center">登陆</div>
+            <div class="right"></div>
+        </div>
+    </div>
+
+    <!-- 页面内容 -->
     <div class="page-content login-screen-content">
         <div class="login-screen-title">Drchat</div>
-        <form id="login-form" onsubmit="return submitLogin()">
+        <form>
             <div class="list-block">
                 <ul>
                     <li>
@@ -35,6 +40,7 @@
                     </li>
                 </ul>
             </div>
+
             <div class="content-block">
                 <div class="row">
                     <div class="col-50">
@@ -46,5 +52,6 @@
                 </div>
             </div>
         </form>
+        
     </div>
 </div>
