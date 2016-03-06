@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    
+
     <!-- Title   -->
     <title>Drchat</title>
-    
+
     <!--Framework7 Library CSS-->
     <link rel="stylesheet" href="vendor/framework7/css/framework7.ios.min.css">
     <link rel="stylesheet" href="vendor/framework7/css/framework7.ios.colors.min.css">
-    
+
     <!-- Custom CSS-->
     <link rel="stylesheet" href="vendor/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
@@ -40,7 +40,8 @@
                             <div class="center">Drchat</div>
                             <div class="right"></div>
                         </div>
-                    </div><!-- 顶部栏 -->
+                    </div>
+                    <!-- 顶部栏 -->
 
                     <!-- 底部栏 -->
                     <div class="toolbar tabbar tabbar-labels">
@@ -54,17 +55,18 @@
                                 <i class="icon ion-ios-color-filter-outline"></i>
                                 <span class="tabbar-label">群聊</span>
                             </a>
+                            -->
                             <a href="#tab-contact" class="tab-link">
                                 <i class="icon ion-ios-personadd-outline"></i>
                                 <span class="tabbar-label">联系人</span>
                             </a>
                             <a href="#tab-my" class="tab-link">
                                 <i class="icon ion-social-snapchat-outline"></i>
-                                <span class="tabbar-label">我的</span>
+                                <span class="tabbar-label">我</span>
                             </a>
-                            -->
                         </div>
-                    </div><!-- 底部栏 -->
+                    </div>
+                    <!-- 底部栏 -->
 
                     <!-- 主页面 -->
                     <div class="page-content">
@@ -83,9 +85,9 @@
                                                         </div>
                                                         <div class="item-inner">
                                                             <div class="item-title-row">
-                                                                <div class="item-title">暂无消息</div>
+                                                                <div class="item-title">AWS</div>
                                                             </div>
-                                                            <div class="item-subtitle">2015-03-03 12:00</div>
+                                                            <div class="item-subtitle">没有新的消息</div>
                                                         </div>
                                                     </a>
                                                 </li>
@@ -95,23 +97,21 @@
 
                                     <!-- 群聊 -->
                                     <!--
-                                    <div id="tab-group-chat" class="tab">
-                                        <div class="content-block-title">暂不支持</div>
-                                    </div>
+                                    <div id="tab-group-chat" class="tab"></div>
                                     -->
 
                                     <!-- 联系人 -->
                                     <div id="tab-contact" class="tab">
-                                        <div class="list-block contacts-block inset">
+                                        <div class="list-block contacts-block">
                                             <div class="list-group">
                                                 <ul>
                                                     <li class="list-group-title">A</li>
                                                     <li>
-                                                        <div class="item-content">
+                                                        <a href="chat.html" class="item-link item-content">
                                                             <div class="item-inner">
                                                                 <div class="item-title">AWS</div>
                                                             </div>
-                                                        </div>
+                                                        </a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -127,14 +127,25 @@
                                                     <div class="item-content">
                                                         <div class="item-media"><i class="icon icon-form-name"></i></div>
                                                         <div class="item-inner">
-                                                            <div class="item-title label">昵称</div>
-                                                            <div class="item-input">
-                                                                <input id="login-name" type="text" placeholder="你的昵称">
+                                                            <div class="item-title label">用户名</div>
+                                                            <div class="item-input disabled">
+                                                                <input id="login-name" type="text">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </li>
-                                                
+                                                <li>
+                                                    <div class="item-content">
+                                                        <div class="item-media"><i class="icon icon-form-name"></i></div>
+                                                        <div class="item-inner">
+                                                            <div class="item-title label">昵称</div>
+                                                            <div class="item-input">
+                                                                <input id="nick-name" type="text" placeholder="你的昵称">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+
                                                 <li>
                                                     <div class="item-content">
                                                         <div class="item-media"><i class="icon icon-form-url"></i></div>
@@ -146,23 +157,23 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                                
+
                                             </ul>
                                         </div>
                                         <div class="content-block">
-                                            <p><a href="#" id="save-btn" class="button ">保存</a></p>
+                                            <p><a href="#" id="save-btn" class="button button-fill color-green disabled">保存</a></p>
                                             <p><a href="login.html" id="logout-btn" class="button button-fill color-red">退出</a></p>
                                         </div>
                                     </div>
-                                    
-                                </div><!-- tabs -->
+
+                                </div>
+                                <!-- tabs -->
                             </div>
                         </div>
-                    </div><!-- 主页面 -->
-
+                    </div>
+                    <!-- 主页面 -->
                 </div>
             </div>
-
         </div>
     </div>
 
