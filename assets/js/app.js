@@ -73,16 +73,19 @@ function initPageEvent() {
     });
 }
 
-// 页面响应
+// 主页面响应
 function initIndexPageEvent(pageContainer) {
     
     var $logout_btn = pageContainer.find('#logout-btn');
-    var $nick_name= pageContainer.find('#nick-name');
+    var $nick_name = pageContainer.find('#nick-name');
     var $save_btn = pageContainer.find('#save-btn');
     var $login_name = pageContainer.find('#login-name');
     
     // 设置登录名
     $login_name.val(checkLoginStatus());
+    
+    // 设置昵称
+    $nick_name.val(store('gNickName'));
     
     // 处理退出按钮
     $logout_btn.on('click', function (event) {
@@ -100,16 +103,6 @@ function initIndexPageEvent(pageContainer) {
     // 处理保存按钮
     $save_btn.on('click', function(event) {
         $save_btn.addClass('disabled');
+        store('gNickName', $nick_name.val());
     });
-}
-
-// 更新消息列表
-function updateMessageList(data) {
-    var parse_data = JSON.parse(data);
-    if(parse_data.status !== 'ok') {
-        return false;
-    }
-    
-    var $message_list = indexPageContainer.find('#message-list');
-    var $message_template = $$('script#message-template').html();
 }

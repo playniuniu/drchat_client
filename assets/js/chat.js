@@ -66,8 +66,9 @@ function handle_local_message() {
         chat_page_messagebar.clear();
 
         var messageSend = {
-            from: checkLoginStatus(),
-            to: current_chat_user,
+            fromUser: checkLoginStatus(),
+            toUser: current_chat_user,
+            fromNickName: store('gNickName') ? store('gNickName') : checkLoginStatus(),
             messageFormat: "text",
             messageTime: Date.now(),
             messageBody: messageText
@@ -98,7 +99,12 @@ function update_message_box(messageJSON, messageType) {
 
     if (messageType === 'received') {
         avatar = './assets/images/chat/user_2.png';
-        showName = parseMessage.from;
+        if(parseMessage.fromNickName === parseMessage.fromUser) {
+            showName = parseMessage.fromUser;
+        } else {
+            showName = parseMessage.fromNickName + '( ' + parseMessage.fromUser + ')';
+        }
+        
     } else {
         avatar = './assets/images/chat/user_1.png';
         showName = null;
@@ -140,12 +146,12 @@ function update_message_history(data) {
         var el = JSON.parse(msg_list[i]);
         
         // 检测本人发送
-        if(el.from === checkLoginStatus()) {
+        if(el.fromUser === checkLoginStatus()) {
             update_message_box(msg_list[i], "sent");
         }
         
         // 检测本人接收
-        if(el.to === checkLoginStatus()) {
+        if(el.toUser === checkLoginStatus()) {
             update_message_box(msg_list[i], "received");
         }
     }
