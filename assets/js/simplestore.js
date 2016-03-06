@@ -38,7 +38,7 @@ var store = function store(key, value) {
                 createCookie(key, value, 30);
             }
         } catch(err) {
-            throw "store write error!";
+            console.log("store write error!");
         }
         
     }
@@ -53,7 +53,7 @@ var store = function store(key, value) {
                 data = readCookie(key);
             }
         } catch(err) {
-            throw "store read error!";
+            console.log("store read error!");
         }
         
         // Try to parse JSON...
@@ -77,7 +77,7 @@ var store = function store(key, value) {
                 createCookie(key, '', -1);
             }
         } catch (err) {
-            throw "store remove error!";
+            console.log("store remove error!");
         }
     }
     

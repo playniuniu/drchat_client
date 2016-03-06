@@ -96,22 +96,22 @@ function initPageEvent() {
     });
 }
 
-function ajaxDataUpdate(updateType, callback, ...params) {
+function ajaxDataUpdate(updateType, callback, params) {
     var ajax_url;
     
     if(updateType === 'messageList') {
-        var username = params[0];
+        var username = params;
         ajax_url = "http://" + document.location.hostname + ":" + socket_port + '/messagelist/' + username;
     }
     
     if (updateType === 'contactList') {
-        var username = params[0];
+        var username = params;
         ajax_url = "http://" + document.location.hostname + ":" + socket_port + '/contactlist/' + username;
     }
     
     if (updateType === 'chatHistory') {
         var fromUser = checkLoginStatus();
-        var toUser = params[0];
+        var toUser = params;
         ajax_url = "http://" + document.location.hostname + ":" + socket_port + '/messages/' + fromUser + '/' + toUser;
     }
     
