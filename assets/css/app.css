@@ -2,10 +2,12 @@
     font-size: 1.5em;
 }
 
-.content-block {
-    margin: 0;
+.page-content .content-block {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-.list-block {
-    margin: 15px 0;
+.tab .list-block {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

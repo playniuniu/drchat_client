@@ -57,10 +57,11 @@ function processLogin(pageContainer, mainView, gApp) {
         var username = pageContainer.find('input[name="username"]').val();
         var password = pageContainer.find('input[name="password"]').val();
 
-        if (password !== '123') {
+        if ( (username !== 'drchat' && username !== 'aws') || password !== '123') {
             gApp.addNotification({
                 title: 'drchat',
-                message: '登陆用户名或者密码错误!'
+                message: '登陆用户名或者密码错误!',
+                hold: 3000,
             });
             return false;
         }
