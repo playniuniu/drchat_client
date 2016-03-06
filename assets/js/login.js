@@ -7,43 +7,19 @@ function checkLoginStatus() {
     if (gUserName) {
         return gUserName;
     }
-
-    try {
-        gUserName = window.localStorage ? localStorage.getItem("userName") : Cookie.read("userName");
-    } catch (err) {
-        console.log("ERROR: Can't read localStorage or cookies from your browser!");
-    }
-    return gUserName;
+    return store("gUserName");
 }
 
 // 设置登陆信息
 function setLogin(userName) {
     gUserName = userName;
-
-    try {
-        if (window.localStorage) {
-            localStorage.setItem("userName", userName);
-        } else {
-            Cookie.write("userName", userName);
-        }
-    } catch (err) {
-        console.log("ERROR: Can't set localStorage or cookies from your browser!");
-    }
+    store("gUserName", gUserName);
 }
 
 // 设置登出
 function setLogout() {
     gUserName = null;
-
-    try {
-        if (window.localStorage) {
-            localStorage.removeItem("userName");
-        } else {
-            Cookie.write("userName", "");
-        }
-    } catch (err) {
-        console.log("ERROR: Can't set localStorage or cookies from your browser!");
-    }
+    store("gUserName", null);
 }
 
 // 处理登陆对话框
