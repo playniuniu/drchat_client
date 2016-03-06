@@ -75,25 +75,7 @@
                                 <div class="tabs">
 
                                     <!-- 消息 -->
-                                    <div id="tab-msg" class="tab active">
-                                        <div class="list-block media-list inset">
-                                            <ul>
-                                                <li>
-                                                    <a href="chat.html" class="item-link item-content">
-                                                        <div class="item-media">
-                                                            <img src="assets/images/chat/pc.png" width="44">
-                                                        </div>
-                                                        <div class="item-inner">
-                                                            <div class="item-title-row">
-                                                                <div class="item-title">AWS</div>
-                                                            </div>
-                                                            <div class="item-subtitle">没有新的消息</div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <div id="tab-msg" class="tab active"></div>
 
                                     <!-- 群聊 -->
                                     <!--
@@ -101,22 +83,7 @@
                                     -->
 
                                     <!-- 联系人 -->
-                                    <div id="tab-contact" class="tab">
-                                        <div class="list-block contacts-block">
-                                            <div class="list-group">
-                                                <ul>
-                                                    <li class="list-group-title">A</li>
-                                                    <li>
-                                                        <a href="chat.html" class="item-link item-content">
-                                                            <div class="item-inner">
-                                                                <div class="item-title">AWS</div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div id="tab-contact" class="tab"></div>
 
                                     <!-- 设置 -->
                                     <div id="tab-my" class="tab">
@@ -176,6 +143,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Template -->
+    <script type="text/template7" id="messageList">
+        <div class="list-block media-list inset">
+            <ul>
+                {{#each msgItem}}
+                <li>
+                    <a href="chat.html" class="item-link item-content" data-context='{"toUser": "{{userName}}" }'>
+                        <div class="item-media">
+                            <img src="assets/images/chat/pc.png" width="44">
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title-row">
+                                <div class="item-title">{{userName}}</div>
+                            </div>
+                            <div class="item-subtitle">{{msgCount}}</div>
+                        </div>
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </script>
+
+    <script type="text/template7" id="contactList">
+        <div class="list-block contacts-block">
+            <div class="list-group">
+                <ul>
+                    {{#each contactItem}}
+                    <li>
+                        <a href="chat.html" class="item-link item-content" data-context='{"toUser": "{{userName}}" }'>
+                            <div class="item-inner">
+                                <div class="item-title">{{userName}}</div>
+                            </div>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </script>
 
     <!-- Framework7 Library JS-->
     <script type="text/javascript" src="vendor/framework7/js/framework7.min.js"></script>

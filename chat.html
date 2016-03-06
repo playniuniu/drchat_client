@@ -5,12 +5,15 @@
     <div class="navbar">
         <div class="navbar-inner">
             <div class="left">
-                <a href="index.html" class="back">
+                <a href="index.html" class="back link">
                     <i class="icon icon-back"></i>
+                    <span>Back</span>
                 </a>
             </div>
             <div class="center">聊天</div>
-            <div class="right"></div>
+            <div class="right">
+                <a href="#" id="clear-btn" class="link">清空</a>
+            </div>
         </div>
     </div>
 
@@ -21,6 +24,9 @@
             <a href="#" class="link">发送</a>
         </div>
     </div>
+    
+    <!-- 隐藏栏 -->
+    <div id="chat-box" data-toUser={{toUser}}></div>
 
     <!-- 消息框 -->
     <div class="page-content messages-content">

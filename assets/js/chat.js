@@ -4,12 +4,11 @@
 var socket_port = 3000;
 var local_socket = null;
 var chat_page_messages, chat_page_messagebar;
-var current_chat_user, conversationStarted;
+var gToUser, conversationStarted;
 
 // 初始化 chat 页面
 function init_chat_page(gApp) {
     // 初始化变量
-    current_chat_user = 'aws';
     conversationStarted = false;
 
     // 初始化 Message 对话框
@@ -26,9 +25,6 @@ function init_chat_page(gApp) {
     // 初始化消息处理函数
     handle_local_message();
     handle_remote_message();
-    
-    // 更新消息历史
-    ajaxHistroyMessage(checkLoginStatus(), update_message_history);
 }
 
 // 连接 socket io
@@ -67,7 +63,7 @@ function handle_local_message() {
 
         var messageSend = {
             fromUser: checkLoginStatus(),
-            toUser: current_chat_user,
+            toUser: gToUser,
             fromNickName: store('gNickName') ? store('gNickName') : checkLoginStatus(),
             messageFormat: "text",
             messageTime: Date.now(),
@@ -131,7 +127,9 @@ function update_message_box(messageJSON, messageType) {
     conversationStarted = true;
 }
 
-function update_message_history(data) {
+// 更新历史消息
+function updateChatHistory(data) {
+    // 取得回调数据
     var recv_msg = JSON.parse(data);
     if(recv_msg.status !== 'ok') {
         return;
@@ -157,17 +155,11 @@ function update_message_history(data) {
     }
 }
 
-// 获取历史聊天记录, 并回调
-function ajaxHistroyMessage(username, callback) {
-    if(username === null) {
-        return;
-    }
-
-    var $$ = Framework7.$;
-    var history_url = "http://" + document.location.hostname + ":" + socket_port + '/message/' + username;
+function init_chat_page_event(pageContainer) {
+    var $clear_btn = pageContainer.find('#clear-btn');
     
-    // Ajax
-    $$.get(history_url, null, function (data) {
-        callback(data);
+    // 处理清空按钮
+    $clear_btn.on('click', function (event) {
+        chat_page_messages.clean();
     });
 }
