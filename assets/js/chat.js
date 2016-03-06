@@ -102,7 +102,7 @@ function update_message_box(messageJSON, messageType) {
         if(parseMessage.fromNickName === parseMessage.fromUser) {
             showName = parseMessage.fromUser;
         } else {
-            showName = parseMessage.fromNickName + '( ' + parseMessage.fromUser + ')';
+            showName = parseMessage.fromNickName + ' ( ' + parseMessage.fromUser + ' )';
         }
         
     } else {
