@@ -11,3 +11,8 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+.content-block.reg-block {
+    text-align: center;
+    margin-top: 5em;
+}
