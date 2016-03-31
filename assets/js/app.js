@@ -13,12 +13,6 @@ function init_chat_box() {
     gApp = new Framework7({
         // Disable init
         init: false,
-        
-        // precompile template
-        precompileTemplates: true,
-        
-        // enabled pages rendering using Template7
-        template7Pages: true,
 
         // enable pushState
         pushState: true,
@@ -36,27 +30,27 @@ function init_chat_box() {
 
     // 初始化 mainView
     mainView = gApp.addView(".view-main");
-
+    
     // 初始化 page event
     initPageEvent();
-
+    
     // Init app
     gApp.init();
-
-    // 检查登陆情况
-    if (checkLoginStatus() === null) {
-        mainView.router.loadPage("login.html");
-    }
 }
 
 function initPageEvent() {
     // 处理主页
     gApp.onPageInit('index', function (page) {
-        indexPageContainer = $$(page.container);
-        initIndexPageEvent(indexPageContainer);
-        
-        ajaxDataUpdate('messageList', updateMessageList, checkLoginStatus());
-        ajaxDataUpdate('contactList', updateContactList, checkLoginStatus());
+        // 检查登陆情况
+        if (checkLoginStatus() === null) {
+            mainView.router.load({url:"login.html", ignoreCache: true});
+        }
+        else {
+             indexPageContainer = $$(page.container);
+             initIndexPageEvent(indexPageContainer);
+             ajaxDataUpdate('messageList', updateMessageList, checkLoginStatus());
+             ajaxDataUpdate('contactList', updateContactList, checkLoginStatus());
+        }
     });
 
     // 处理登录页
@@ -64,11 +58,11 @@ function initPageEvent() {
         var pageContainer = $$(page.container);
         processLogin(pageContainer, mainView, gApp);
     });
-
-    gApp.onPageBack('login', function (page) {
-        initIndexPageEvent(indexPageContainer);
-        ajaxDataUpdate('messageList', updateMessageList, checkLoginStatus());
-        ajaxDataUpdate('contactList', updateContactList, checkLoginStatus());
+    
+    // 处理注册页
+    gApp.onPageInit('register', function (page) {
+        var pageContainer = $$(page.container);
+        processRegister(pageContainer, mainView, gApp);
     });
 
     // 处理聊天页
@@ -135,11 +129,15 @@ function updateMessageList(data) {
         return;
     }
     
-    // 组装 html
-    var html_context = {
+    // 获取数据
+    var html_data = {
         msgItem: recv_msg.data
     }
-    var html_dom = Template7.templates.messageList(html_context);
+    
+    // 组装 html
+    var html_template = $$('script#messageList').html();
+    var html_compile = Template7.compile(html_template);
+    var html_dom = html_compile(html_data);
     
     // 更新 dom
     indexPageContainer.find('#tab-msg').html('');
@@ -155,11 +153,15 @@ function updateContactList(data) {
         return;
     }
     
-    // 组装 html
-    var html_context = {
+    // 获取数据
+    var html_data = {
         contactItem: recv_msg.data
     }
-    var html_dom = Template7.templates.contactList(html_context);
+    
+    // 组装 html
+    var html_template = $$('script#contactList').html();
+    var html_compile = Template7.compile(html_template);
+    var html_dom = html_compile(html_data);
     
     // 更新 dom
     indexPageContainer.find('#tab-contact').html('');

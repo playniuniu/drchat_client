@@ -43,11 +43,46 @@ function processLogin(pageContainer, mainView, gApp) {
         }
 
         setLogin(username);
-        mainView.router.back();
+        mainView.router.load({url:"index.html", ignoreCache: true});
     });
     
     // 处理取消按钮
     pageContainer.find('#cancel-login').on('click', function (event) {
+        // 阻止默认提交
+        event.preventDefault();
+        
+        pageContainer.find('input[name="username"]').val('');
+        pageContainer.find('input[name="password"]').val('');
+        
+    });
+}
+
+// 处理注册对话框
+function processRegister(pageContainer, mainView, gApp) {
+
+    // 处理提交按钮
+    pageContainer.find('#submmit-register').on('click', function (event) {
+        // 阻止默认提交
+        event.preventDefault();
+        
+        var username = pageContainer.find('input[name="username"]').val();
+        var password = pageContainer.find('input[name="password"]').val();
+
+        if ( (username !== 'drchat' && username !== 'aws') || password !== '123') {
+            gApp.addNotification({
+                title: 'drchat',
+                message: '登陆用户名或者密码错误!',
+                hold: 3000,
+            });
+            return false;
+        }
+
+        setLogin(username);
+        mainView.router.load({url:"index.html", ignoreCache: true});
+    });
+    
+    // 处理取消按钮
+    pageContainer.find('#cancel-register').on('click', function (event) {
         // 阻止默认提交
         event.preventDefault();
         
