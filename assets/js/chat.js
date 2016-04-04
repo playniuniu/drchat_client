@@ -1,11 +1,5 @@
 "use strict";
 
-// 定义变量
-var socket_port = 3000;
-var local_socket = null;
-var chat_page_messages, chat_page_messagebar;
-var gToUser, conversationStarted;
-
 // 初始化 chat 页面
 function init_chat_page(gApp) {
     // 初始化变量

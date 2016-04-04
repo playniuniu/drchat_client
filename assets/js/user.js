@@ -1,7 +1,5 @@
 "use strict";
 
-var gUserName = null;
-
 // 检测登陆状况
 function checkLoginStatus() {
     if (gUserName) {
@@ -22,8 +20,23 @@ function setLogout() {
     store("gUserName", null);
 }
 
-// 处理登陆对话框
-function processLogin(pageContainer, mainView, gApp) {
+// 处理用户登陆
+function processAjaxLogin(data, status) {
+    var response = JSON.parse(data);
+    
+    if(response.status === 'ok') {
+        var username = response.data.username;
+        setLogin(username);
+        gMainView.router.load({url:"index.html", ignoreCache: true});
+    }
+    else {
+        showNotification(response.data);
+    }
+    
+}
+
+// 处理用户登陆
+function processLogin(pageContainer) {
 
     // 处理提交按钮
     pageContainer.find('#submmit-login').on('click', function (event) {
@@ -32,18 +45,14 @@ function processLogin(pageContainer, mainView, gApp) {
         
         var username = pageContainer.find('input[name="username"]').val();
         var password = pageContainer.find('input[name="password"]').val();
-
-        if ( (username !== 'drchat' && username !== 'aws') || password !== '123') {
-            gApp.addNotification({
-                title: 'drchat',
-                message: '登陆用户名或者密码错误!',
-                hold: 3000,
-            });
-            return false;
-        }
-
-        setLogin(username);
-        mainView.router.load({url:"index.html", ignoreCache: true});
+        
+        var ajax_url = ajax_base_url + '/user/login';
+        var ajax_data = {
+            "username" : username, 
+            "password" : password,
+        };
+        
+        ajaxCall('post', ajax_url, ajax_data, processAjaxLogin);
     });
     
     // 处理取消按钮
@@ -57,8 +66,22 @@ function processLogin(pageContainer, mainView, gApp) {
     });
 }
 
-// 处理注册对话框
-function processRegister(pageContainer, mainView, gApp) {
+// 处理用户注册
+function processAjaxRegister(data, status) {
+    var response = JSON.parse(data);
+    
+    if(response.status === 'ok') {
+        var username = response.data.username;
+        setLogin(username);
+        gMainView.router.load({url:"index.html", ignoreCache: true});
+    }
+    else {
+        showNotification(response.data);
+    }
+}
+
+// 处理用户注册
+function processRegister(pageContainer) {
 
     // 处理提交按钮
     pageContainer.find('#submmit-register').on('click', function (event) {
@@ -67,18 +90,14 @@ function processRegister(pageContainer, mainView, gApp) {
         
         var username = pageContainer.find('input[name="username"]').val();
         var password = pageContainer.find('input[name="password"]').val();
-
-        if ( (username !== 'drchat' && username !== 'aws') || password !== '123') {
-            gApp.addNotification({
-                title: 'drchat',
-                message: '登陆用户名或者密码错误!',
-                hold: 3000,
-            });
-            return false;
-        }
-
-        setLogin(username);
-        mainView.router.load({url:"index.html", ignoreCache: true});
+        
+        var ajax_url = ajax_base_url + '/user/register';
+        var ajax_data = {
+            "username" : username, 
+            "password" : password,
+        };
+        
+        ajaxCall('post', ajax_url, ajax_data, processAjaxRegister);
     });
     
     // 处理取消按钮
