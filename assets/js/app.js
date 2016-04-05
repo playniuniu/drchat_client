@@ -68,7 +68,6 @@ function initPageEvent() {
     });
     
     gApp.onPageBack('addcontact', function (page) {
-        console.log('back');
         updateContactList();
     });
 

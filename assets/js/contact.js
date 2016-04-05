@@ -27,6 +27,21 @@ function processAjaxContact(data, status) {
     gIndexPageContainer.find('.chat-link').on("click", function(event) {
         gToUser = $$(this).data("toUser").toString();
     });
+    
+    // 处理删除按钮
+    gIndexPageContainer.find('.contact-delete').on("click", function(event) {
+        var ajax_url = ajax_base_url + '/contact/' + checkLoginStatus();
+        var ajax_data = {'username' : $$(this).data("delUser").toString()}
+        ajaxCall('delete', ajax_url, ajax_data, function(data, status) {
+            var response = JSON.parse(data);
+            if(response.status !== 'ok') {
+                showNotification(response.data);
+            }
+            else {
+                updateContactList();
+            }
+        });
+    })
 }
 
 // 处理联系人列表
@@ -52,7 +67,7 @@ function processAddContact(pageContainer) {
             "nickname" : nickname,
         };
         
-        ajaxCall('post', ajax_url, ajax_data, function(data, status) {
+        ajaxCall('put', ajax_url, ajax_data, function(data, status) {
             gMainView.router.back({url:"index.html"});
         });
     });

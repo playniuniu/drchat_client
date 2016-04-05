@@ -25,16 +25,35 @@ function showNotification(notification) {
 
 // 处理 Ajax
 function ajaxCall(ajax_type, ajax_url, ajax_data, callback_func) {
+    console.log("Ajax " + ajax_type + ": " + ajax_url);
     if(ajax_type === 'get') {
-        console.log("Ajax get: " + ajax_url);
-        $$.get(ajax_url, null, function(response, status) {
+        $$.get(ajax_url, ajax_data, function(response, status) {
             callback_func(response, status);
         });
     }
     else if(ajax_type === 'post') {
-        console.log("Ajax post: " + ajax_url);
         $$.post(ajax_url, ajax_data, function(response, status) {
             callback_func(response, status);
+        });
+    }
+    else if(ajax_type === 'put') {
+        $$.ajax({
+            method: 'PUT',
+            url: ajax_url,
+            data: ajax_data,
+            success: function(response, status) {
+                callback_func(response, status);
+            }
+        });
+    }
+    else if(ajax_type === 'delete') {
+        $$.ajax({
+            method: 'DELETE',
+            url: ajax_url,
+            data: ajax_data,
+            success: function(response, status) {
+                callback_func(response, status);
+            }
         });
     }
     else {

@@ -177,12 +177,17 @@
             <div class="list-group">
                 <ul>
                     {{#each contactItem}}
-                    <li>
-                        <a href="chat.html" class="item-link item-content chat-link" data-toUser="{{username}}">
-                            <div class="item-inner">
-                                <div class="item-title">{{username}}</div>
-                            </div>
-                        </a>
+                    <li class="swipeout">
+                        <div class="swipeout-content">
+                            <a href="chat.html" class="item-link item-content chat-link" data-toUser="{{username}}">
+                                <div class="item-inner">
+                                    <div class="item-title">{{username}}</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="swipeout-actions-right">
+                            <a href="#" class="swipeout-delete contact-delete" data-delUser="{{username}}">删除</a>
+                        </div>
                     </li>
                     {{/each}}
                 </ul>
