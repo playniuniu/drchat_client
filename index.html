@@ -151,7 +151,7 @@
             <ul>
                 {{#each msgItem}}
                 <li>
-                    <a href="chat.html" class="item-link item-content" data-context='{"toUser": "{{userName}}" }'>
+                    <a href="chat.html" class="item-link item-content chat-link" data-toUser={{username}}>
                         <div class="item-media">
                             <img src="assets/images/chat/pc.png" width="44">
                         </div>
@@ -173,12 +173,12 @@
             <a href="addcontact.html" class="button button-fill color-blue">添加联系人</a>
         </div>
         
-        <div class="list-block contacts-block">
+        <div class="list-block inset">
             <div class="list-group">
                 <ul>
                     {{#each contactItem}}
                     <li>
-                        <a href="chat.html" class="item-link item-content" data-context='{"toUser": "{{username}}" }'>
+                        <a href="chat.html" class="item-link item-content chat-link" data-toUser="{{username}}">
                             <div class="item-inner">
                                 <div class="item-title">{{username}}</div>
                             </div>

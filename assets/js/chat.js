@@ -76,6 +76,17 @@ function handle_local_message() {
 // 处理远端消息
 function handle_remote_message() {
     local_socket.on('msg', function (msg) {
+        
+        var local_user = JSON.parse(msg).toUser.toString(); // 我方
+        var remote_user = JSON.parse(msg).fromUser.toString(); // 对方
+        
+        // 非本对话框消息
+        if( local_user !== checkLoginStatus() || remote_user !== gToUser) {
+            console.log("debug: not owner messages");
+            return;
+        }
+        
+        // 更新消息列表
         update_message_box(msg, 'received');
     });
 }

@@ -80,8 +80,6 @@ function initPageEvent() {
         init_chat_page(gApp);
         // 初始化页面响应
         init_chat_page_event(pageContainer);
-        // 获取发送至谁
-        gToUser = pageContainer.find("#chat-box").data("toUser");
         
         // 直接刷新 #chat.html, 有 bug
         if(gToUser) {
@@ -93,6 +91,8 @@ function initPageEvent() {
     gApp.onPageBack('chat', function (page) {
         // disconnect socket io
         disconnect_remote();
+        
+        gToUser = null;
         // ajaxDataUpdate('messageList', updateMessageList, checkLoginStatus());
     });
 }

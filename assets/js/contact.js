@@ -22,6 +22,11 @@ function processAjaxContact(data, status) {
     // 更新 dom
     gIndexPageContainer.find('#tab-contact').html('');
     gIndexPageContainer.find('#tab-contact').append(html_dom);
+    
+    // 更新 chat 相应信息
+    gIndexPageContainer.find('.chat-link').on("click", function(event) {
+        gToUser = $$(this).data("toUser").toString();
+    });
 }
 
 // 处理联系人列表

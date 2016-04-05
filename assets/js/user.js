@@ -10,7 +10,7 @@ function checkLoginStatus() {
 
 // 设置登陆信息
 function setLogin(userName) {
-    gUserName = userName;
+    gUserName = userName.toString();
     store("gUserName", gUserName);
 }
 
