@@ -136,7 +136,7 @@ function update_message_box(messageJSON, messageType) {
 function updateChatHistory(data) {
     // 取得回调数据
     var recv_msg = JSON.parse(data);
-    if(recv_msg.status !== 'ok') {
+    if( recv_msg.status !== 'ok' || recv_msg.data === null ) {
         return;
     }
     

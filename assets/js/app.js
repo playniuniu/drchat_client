@@ -84,7 +84,8 @@ function initPageEvent() {
         // 直接刷新 #chat.html, 有 bug
         if(gToUser) {
             // 更新聊天记录
-            // ajaxDataUpdate('chatHistory', updateChatHistory, gToUser);
+            var ajax_url = ajax_base_url + '/msghistory/' + checkLoginStatus() + '/' + gToUser;
+            ajaxCall('get', ajax_url, null, updateChatHistory);
         }
     });
 
