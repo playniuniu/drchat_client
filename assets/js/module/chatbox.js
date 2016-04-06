@@ -4,6 +4,10 @@ var chatboxMod = (function(){
     
     // chatbox element
     var chatbox_messages, chatbox_messagebar;
+    var chatbox_page_container = null;
+    
+    // 消息发送超时列表
+    var message_timeout_list = {};
     
     function processChatBoxPage(main_app, pageContainer) {
         // 初始化对话框
@@ -25,6 +29,10 @@ var chatboxMod = (function(){
 
     // 初始化 chat 页面
     function initChatBox(main_app) {
+        // 清除 timeout 列表
+        message_timeout_list = {};
+        chatbox_page_container = 
+        
         // 初始化 Message 对话框
         chatbox_messages = main_app.messages('.messages', {
             autoLayout: true,
@@ -68,7 +76,7 @@ var chatboxMod = (function(){
             sockeioMod.sendMessage( JSON.stringify(messageSend) );
 
             // 更新本地消息列表
-            updateChatBox(JSON.stringify(messageSend), 'sent');
+            updateChatBox(JSON.stringify(messageSend), 'pending');
         });
 
     }
@@ -77,52 +85,71 @@ var chatboxMod = (function(){
     function handleRemoteMessage() {
         sockeioMod.listenMessage(function(msg) {
             
-            var local_user = JSON.parse(msg).toUser; // 我方
-            var remote_user = JSON.parse(msg).fromUser; // 对方
-
-            // 非本对话框消息
-            if( local_user !== userMod.getCurrentUser() || remote_user !== userMod.getChatUser() ) {
-                console.log("debug: not owner messages");
-                return;
+            var parse_message = JSON.parse(msg);
+            var toUser = parse_message.toUser; // 我方
+            var fromUser = parse_message.fromUser; // 对方
+            
+            // 本地消息发送成功
+            if( toUser === userMod.getChatUser() && fromUser === userMod.getCurrentUser() ) {
+                clearPendingList(parse_message);
+            }
+            
+            // 发送给本人的消息
+            else if( toUser === userMod.getCurrentUser() && fromUser === userMod.getChatUser() ) {
+                updateChatBox(msg, 'received');
             }
 
-            // 更新消息列表
-            updateChatBox(msg, 'received');
+            // 非本对话框消息
+            else {
+                console.log("boardcast message will not show.");
+            }
+            
             
         });
     }
 
     // 更新对话框
-    // messageType有 ['sent', 'received'] 两种类型
+    // messageType有 ['sent', 'received', 'pending'] 三种类型，其中 pending 为自定义
     function updateChatBox(messageJSON, messageType) {
         // 接收的消息的头像和名称
-        var avatar, showName;
+        var avatar, show_name, show_message;
         var parseMessage = JSON.parse(messageJSON);
-
+        
+        
         if (messageType === 'received') {
             avatar = './assets/images/chat/user_2.png';
-            showName = parseMessage.fromUser;
-        } else {
+            show_name = parseMessage.fromUser;
+            show_message = parseMessage.messageBody;
+        } 
+        if (messageType === 'sent'){
             avatar = './assets/images/chat/user_1.png';
-            showName = null;
+            show_name = null;
+            show_message = parseMessage.messageBody;
+        }
+        if (messageType === 'pending'){
+            avatar = './assets/images/chat/user_1.png';
+            show_name = null;
+            show_message = buildPendingMessage(parseMessage);
+            addPendingList(parseMessage);
+            messageType = 'sent';
         }
 
         // Add message
         chatbox_messages.addMessage({
             // Message text
-            text: parseMessage.messageBody,
+            text: show_message,
 
             // 随机消息类型
             type: messageType,
 
             // 头像和名称
             avatar: avatar,
-            name: showName,
-
+            name: show_name,
+            
             // 日期
             day: false,
             time: false
-        })
+        });
     }
     
     // 更新历史消息
@@ -151,6 +178,46 @@ var chatboxMod = (function(){
                 updateChatBox(msg_list[i], "received");
             }
         }
+    }
+    
+    /*
+     * 针对消息超时的处理函数
+     */
+    
+    // 获取消息的 Message ID
+    function getPendingMessageId(parseMessage) {
+        return parseMessage.fromUser + "_" + parseMessage.toUser + "_" + parseMessage.messageTime;
+    }
+    
+    // 构建 pending 消息
+    function buildPendingMessage(parseMessage) {
+        var message_text = parseMessage.messageBody;
+        var message_id = getPendingMessageId(parseMessage);
+        var message_html = '<span class="pending-msg" id="' + message_id + '">' + message_text + '</span>';
+        return message_html;
+    }
+    
+    // 加入 timeout 列表
+    function addPendingList(parseMessage) {
+        var message_id = getPendingMessageId(parseMessage);
+        message_timeout_list[message_id] = setTimeout(function() {
+            showTimeOutPendingMessage(parseMessage) 
+        }, 15000);
+    }
+    
+    // 从 timeout 列表清除
+    function clearPendingList(parseMessage) {
+        var message_id = getPendingMessageId(parseMessage);
+        clearTimeout(message_timeout_list[message_id]);
+        delete message_timeout_list[message_id];
+    }
+    
+    // 显示出错消息
+    function showTimeOutPendingMessage(parseMessage) {
+        var message_id = getPendingMessageId(parseMessage);
+        var dom_id = "#" + message_id;
+        console.log("Message pending error: " + message_id);
+        $$(dom_id).parent().addClass('pending-error');
     }
     
     return {

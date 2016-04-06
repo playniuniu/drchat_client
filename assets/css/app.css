@@ -24,3 +24,7 @@
 .addcontact-form {
     margin-top: 5em;
 }
+
+.message-text.pending-error {
+    background-color: #ff4500;
+}
