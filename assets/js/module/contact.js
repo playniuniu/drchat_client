@@ -33,7 +33,7 @@ var contactMod = (function(){
         // 处理删除按钮
         gIndexPageContainer.find('.contact-delete').on("click", function(event) {
             var ajax_url = ajax_base_url + '/contact/' + userMod.getCurrentUser();
-            var ajax_data = {'username' : $$(this).data("delUser").toString()}
+            var ajax_data = {'username' : String($$(this).data("delUser"))}
             ajaxCall('DELETE', ajax_url, ajax_data, function(data, status) {
                 var response = JSON.parse(data);
                 if(response.status !== 'ok') {

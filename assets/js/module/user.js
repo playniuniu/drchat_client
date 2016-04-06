@@ -7,7 +7,7 @@ var userMod = (function() {
 
     // 设置登陆
     function setLogin(userName) {
-        gCurrentUser = userName.toString();
+        gCurrentUser = String(userName);
         store("gCurrentUser", gCurrentUser);
     }
 
@@ -28,14 +28,14 @@ var userMod = (function() {
     // 获取当前用户
     function getCurrentUser() {
         if (gCurrentUser) {
-            return gCurrentUser;
+            return String(gCurrentUser);
         }
         return store("gCurrentUser");
     }
     
     // 设置用户昵称
     function setNickname(nickname) {
-        store( 'gNickname', nickname.toString() );
+        store( 'gNickname', String(nickname) );
     }
     
     // 获取用户昵称
