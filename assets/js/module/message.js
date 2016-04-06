@@ -1,6 +1,7 @@
 "use strict";
 
 var messageMod = (function(){
+    var gUpdateMessageInterval = null;
     
     // 处理消息列表
     function processAjaxMessage(data, status) {
@@ -64,8 +65,29 @@ var messageMod = (function(){
         ajaxCall('GET', ajax_url, null, processAjaxMessage);
     }
     
+    // 设置定时更新
+    function setIntervalUpdateMessageList() {
+        
+        if(gUpdateMessageInterval) {
+            clearInterval(gUpdateMessageInterval);
+        }
+        
+        gUpdateMessageInterval = setInterval(function() {
+            messageMod.updateMessageList();
+        },10000);
+    }
+    
+    // 删除定时更新
+    function clearIntervalUpdateMessageList() {
+        if(gUpdateMessageInterval) {
+            clearInterval(gUpdateMessageInterval);
+        }
+    }
+    
     return {
         updateMessageList: updateMessageList,
+        setIntervalUpdateMessageList: setIntervalUpdateMessageList,
+        clearIntervalUpdateMessageList: clearIntervalUpdateMessageList,
     }
     
 }());

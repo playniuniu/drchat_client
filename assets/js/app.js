@@ -70,16 +70,20 @@ var mainApp = (function(){
 
         // 处理聊天页
         gApp.onPageInit('chatbox', function (page) {
+            messageMod.clearIntervalUpdateMessageList();
             chatboxMod.processChatBoxPage(gApp, $$(page.container));
         });
 
         gApp.onPageBack('chatbox', function (page) {
             // disconnect socket io
             sockeioMod.disconnect();
+            
             // clear chatUser
             userMod.setChatUser(null);
+            
             // 更新消息列表
             messageMod.updateMessageList();
+            messageMod.setIntervalUpdateMessageList();
         });
     }
 
@@ -146,13 +150,8 @@ var mainApp = (function(){
         
         // 更新消息列表
         messageMod.updateMessageList();
-        
-        // 设置定时更新
-        setInterval(function() {
-            messageMod.updateMessageList();
-        },10000);
-        
-    }
+        messageMod.setIntervalUpdateMessageList();
+    }    
     
     return {
         initApp : initApp,
