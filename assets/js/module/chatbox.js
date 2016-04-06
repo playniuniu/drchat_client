@@ -164,9 +164,15 @@ var chatboxMod = (function(){
 
         // 读取的时候消息是按从新到旧排列的，因此需要倒序
         msg_list = msg_list.reverse();
+        
+        console.log(userMod.getCurrentUser());
+        console.log(userMod.getChatUser());
 
         for(var i=0; i< msg_list.length; i++) {
             var el = JSON.parse(msg_list[i]);
+            console.log('---------------');
+            console.log(el.fromUser);
+            console.log(el.toUser);
 
             // 检测本人发送
             if(el.fromUser === userMod.getCurrentUser()) {

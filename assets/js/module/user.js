@@ -20,9 +20,15 @@ var userMod = (function() {
     // 检测登陆
     function checkLogin() {
         if (gCurrentUser) {
-            return gCurrentUser;
+            return true;
         }
-        return store("gCurrentUser");
+        
+        if( store("gCurrentUser") ) {
+            gCurrentUser = String( store("gCurrentUser") );
+            return true;
+        }
+        
+        return false;
     }
     
     // 获取当前用户
@@ -30,7 +36,13 @@ var userMod = (function() {
         if (gCurrentUser) {
             return String(gCurrentUser);
         }
-        return store("gCurrentUser");
+        
+        if(store("gCurrentUser")) {
+            gCurrentUser = String( store("gCurrentUser") );
+            return gCurrentUser;
+        }
+        
+        return null;
     }
     
     // 设置用户昵称
@@ -60,7 +72,7 @@ var userMod = (function() {
         if(response.status === 'ok') {
             var username = response.data.username;
             setLogin(username);
-            gMainView.router.load({url:"index.html", ignoreCache: true});
+            gMainView.router.load({url:"index.html"});
         }
         else {
             showNotification(response.data);
@@ -106,7 +118,7 @@ var userMod = (function() {
         if(response.status === 'ok') {
             var username = response.data.username;
             setLogin(username);
-            gMainView.router.load({url:"index.html", ignoreCache: true});
+            gMainView.router.load({url:"index.html"});
         }
         else {
             showNotification(response.data);

@@ -11,9 +11,9 @@ var mainApp = (function(){
             // Disable init
             init: false,
 
-            // enable pushState
-            pushState: true,
-            pushStateSeparator: "#",
+            // disable pushState
+            pushState: false,
+            // pushStateSeparator: "#",
 
             // Hide and show indicator during ajax requests
             onAjaxStart: function (xhr) {
@@ -39,8 +39,8 @@ var mainApp = (function(){
         // 处理主页
         gApp.onPageInit('index', function (page) {
             // 检查登陆情况
-            if (userMod.checkLogin() === null) {
-                gMainView.router.load({url:"login.html", ignoreCache: true});
+            if ( !userMod.checkLogin() ) {
+                gMainView.router.load({url:"login.html"});
             }
             else {
                 gIndexPageContainer = $$(page.container);
@@ -60,6 +60,7 @@ var mainApp = (function(){
 
         // 处理联系人页
         gApp.onPageInit('addcontact', function (page) {
+            // 检查登陆情况
             contactMod.processAddContactPage($$(page.container));
         });
 
@@ -70,8 +71,14 @@ var mainApp = (function(){
 
         // 处理聊天页
         gApp.onPageInit('chatbox', function (page) {
-            messageMod.clearIntervalUpdateMessageList();
-            chatboxMod.processChatBoxPage(gApp, $$(page.container));
+            // 检查对话框
+            if (userMod.getChatUser() === null) {
+                gMainView.router.load({url:"index.html"});
+            }
+            else {
+                messageMod.clearIntervalUpdateMessageList();
+                chatboxMod.processChatBoxPage(gApp, $$(page.container));
+            }
         });
 
         gApp.onPageBack('chatbox', function (page) {
