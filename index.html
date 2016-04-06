@@ -38,7 +38,11 @@
                         <div class="navbar-inner">
                             <div class="left"></div>
                             <div class="center">Drchat</div>
-                            <div class="right"></div>
+                            <div class="right">
+                                <a href="#" class="link icon-only" id='reload_btn'>
+                                    <i class="icon ion-ios-reload"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <!-- 顶部栏 -->
@@ -46,7 +50,7 @@
                     <!-- 底部栏 -->
                     <div class="toolbar tabbar tabbar-labels">
                         <div class="toolbar-inner">
-                            <a href="#tab-msg" class="tab-link active">
+                            <a href="#tab-message" class="tab-link active">
                                 <i class="icon ion-ios-chatbubble-outline"></i>
                                 <span class="tabbar-label">消息</span>
                             </a>
@@ -75,7 +79,7 @@
                                 <div class="tabs">
 
                                     <!-- 消息 Template -->
-                                    <div id="tab-msg" class="tab active"></div>
+                                    <div id="tab-message" class="tab active"></div>
 
                                     <!-- 群聊 Template -->
                                     <!--
@@ -148,23 +152,30 @@
     <!-- Template -->
     <script type="text/template7" id="messageList">
         <div class="list-block media-list inset">
-            <ul>
-                {{#each msgItem}}
-                <li>
-                    <a href="chat.html" class="item-link item-content chat-link" data-toUser={{username}}>
-                        <div class="item-media">
-                            <img src="assets/images/chat/pc.png" width="44">
+            <div class="list-group">
+                <ul>
+                    {{#each msgItem}}
+                    <li class="swipeout">
+                        <div class="swipeout-content">
+                            <a href="chatbox.html" class="item-link item-content chat-link" data-toUser={{username}}>
+                                <div class="item-media">
+                                    <img src="./assets/images/chat/user_1.png" width="55">
+                                </div>
+                                <div class="item-inner">
+                                    <div class="item-title-row">
+                                        <div class="item-title">{{username}}</div>
+                                    </div>
+                                    <div class="item-text">{{messageBody}}</div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">{{userName}}</div>
-                            </div>
-                            <div class="item-subtitle">{{msgCount}}</div>
+                        <div class="swipeout-actions-right">
+                            <a href="#" class="swipeout-delete message-delete" data-delUser="{{username}}">删除</a>
                         </div>
-                    </a>
-                </li>
-                {{/each}}
-            </ul>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
         </div>
     </script>
 
@@ -179,7 +190,7 @@
                     {{#each contactItem}}
                     <li class="swipeout">
                         <div class="swipeout-content">
-                            <a href="chat.html" class="item-link item-content chat-link" data-toUser="{{username}}">
+                            <a href="chatbox.html" class="item-link item-content chat-link" data-toUser="{{username}}">
                                 <div class="item-inner">
                                     <div class="item-title">{{username}}</div>
                                 </div>
@@ -199,13 +210,14 @@
     <script type="text/javascript" src="vendor/framework7/js/framework7.min.js"></script>
     <!-- Socket.io JS -->
     <script type="text/javascript" src="vendor/socketio/socket.io.js"></script>
-    <!-- simplestore js -->
-    <script type="text/javascript" src="assets/js/simplestore.js"></script>
     <!-- app js -->
-    <script type="text/javascript" src="assets/js/base.js"></script>
-    <script type="text/javascript" src="assets/js/user.js"></script>
-    <script type="text/javascript" src="assets/js/contact.js"></script>
-    <script type="text/javascript" src="assets/js/chat.js"></script>
+    <script type="text/javascript" src="assets/js/lib/simplestore.js"></script>
+    <script type="text/javascript" src="assets/js/module/base.js"></script>
+    <script type="text/javascript" src="assets/js/module/user.js"></script>
+    <script type="text/javascript" src="assets/js/module/contact.js"></script>
+    <script type="text/javascript" src="assets/js/module/message.js"></script>
+    <script type="text/javascript" src="assets/js/module/socketio.js"></script>
+    <script type="text/javascript" src="assets/js/module/chatbox.js"></script>
     <script type="text/javascript" src="assets/js/app.js"></script>
 </body>
 
