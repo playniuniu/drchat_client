@@ -74,7 +74,7 @@ var messageMod = (function(){
         
         gUpdateMessageInterval = setInterval(function() {
             messageMod.updateMessageList();
-        },10000);
+        },6000);
     }
     
     // 删除定时更新

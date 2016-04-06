@@ -202,7 +202,7 @@ var chatboxMod = (function(){
         var message_id = getPendingMessageId(parseMessage);
         message_timeout_list[message_id] = setTimeout(function() {
             showTimeOutPendingMessage(parseMessage) 
-        }, 15000);
+        }, 6000);
     }
     
     // 从 timeout 列表清除
@@ -210,6 +210,7 @@ var chatboxMod = (function(){
         var message_id = getPendingMessageId(parseMessage);
         clearTimeout(message_timeout_list[message_id]);
         delete message_timeout_list[message_id];
+        console.log("Clear pending message: " + message_id);
     }
     
     // 显示出错消息
