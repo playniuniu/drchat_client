@@ -21,8 +21,11 @@ var sockeioMod = (function() {
     // 断开连接
     function disconnect() {
         console.log("Disconnecting SockeIO");
-        local_socket_io.disconnect();
-        local_socket_io = null;
+        if(local_socket_io) {
+            local_socket_io.disconnect();
+            local_socket_io = null;
+        }
+        
     }
     
     // 发送消息
