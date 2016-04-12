@@ -2,7 +2,7 @@
 
 // 定义全局变量
 var $$ = Framework7.$; // framework7 dom
-var server_port = 3000; // socket.io server port
+var server_port = 4000; // socket.io server port
 var ajax_base_url = "http://" + document.location.hostname + ":" + server_port; // server url
 
 // 显示消息

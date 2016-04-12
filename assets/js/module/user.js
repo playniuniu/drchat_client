@@ -94,7 +94,7 @@ var userMod = (function() {
             var ajax_url = ajax_base_url + '/user/login';
             var ajax_data = {
                 "username" : username, 
-                "password" : password,
+                "password" : hex_sha1(password), // 加密 Password
             };
 
             ajaxCall('POST', ajax_url, ajax_data, processAjaxLogin);
@@ -139,7 +139,7 @@ var userMod = (function() {
             var ajax_url = ajax_base_url + '/user/register';
             var ajax_data = {
                 "username" : username, 
-                "password" : password,
+                "password" : hex_sha1(password), // 加密 Password
             };
 
             ajaxCall('POST', ajax_url, ajax_data, processAjaxRegister);
