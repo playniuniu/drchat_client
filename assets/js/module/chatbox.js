@@ -202,7 +202,7 @@ var chatboxMod = (function(){
         var message_id = getPendingMessageId(parseMessage);
         message_timeout_list[message_id] = setTimeout(function() {
             showTimeOutPendingMessage(parseMessage) 
-        }, 6000);
+        }, 10000);
     }
     
     // 从 timeout 列表清除
