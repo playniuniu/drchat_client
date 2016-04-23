@@ -193,7 +193,8 @@ var chatboxMod = (function(){
     function buildPendingMessage(parseMessage) {
         var message_text = parseMessage.messageBody;
         var message_id = getPendingMessageId(parseMessage);
-        var message_html = '<span class="pending-msg" id="' + message_id + '">' + message_text + '</span>';
+        var message_html = '<div class="message-loading"></div>\n';
+        message_html    += '<span class="pending-msg" id="' + message_id + '">' + message_text + '</span>';
         return message_html;
     }
     
@@ -210,14 +211,22 @@ var chatboxMod = (function(){
         var message_id = getPendingMessageId(parseMessage);
         clearTimeout(message_timeout_list[message_id]);
         delete message_timeout_list[message_id];
-        console.log("Clear pending message: " + message_id);
+        clearPendingMessage(parseMessage);
+    }
+    
+    // 清楚消息加载
+    function clearPendingMessage(parseMessage) {
+        var message_id = getPendingMessageId(parseMessage);
+        var dom_id = "#" + message_id;
+        $$(dom_id).prev().remove();
     }
     
     // 显示出错消息
     function showTimeOutPendingMessage(parseMessage) {
+        console.log("Message pending error: " + message_id);
+        clearPendingMessage(parseMessage);
         var message_id = getPendingMessageId(parseMessage);
         var dom_id = "#" + message_id;
-        console.log("Message pending error: " + message_id);
         $$(dom_id).parent().addClass('pending-error');
     }
     
