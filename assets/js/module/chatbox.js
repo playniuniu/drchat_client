@@ -210,7 +210,6 @@ var chatboxMod = (function(){
     }
 
     function getSendSmsFlag(){
-        console.log(store("send_sms_flag"));
         if( store("send_sms_flag") === "no" ) {
             return false;
         }
