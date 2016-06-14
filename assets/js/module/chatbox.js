@@ -10,6 +10,11 @@ var chatboxMod = (function(){
     var message_timeout_list = {};
     
     function processChatBoxPage(main_app, pageContainer) {
+        // 页面资源
+        var $clear_btn = pageContainer.find('#clear-btn');
+        var $chatbox_textarea = pageContainer.find('#chatbox-textarea');
+        var $chatbox_send_btn = pageContainer.find('#chatbox-send-btn');
+
         // 初始化对话框
         initChatBox(main_app);
         
@@ -18,12 +23,24 @@ var chatboxMod = (function(){
         ajaxCall('GET', ajax_url, null, ajaxUpdateChatBoxHistory);
         
         // 处理清空按钮
-        var $clear_btn = pageContainer.find('#clear-btn');
         $clear_btn.on('click', function (event) {
             chatbox_messages.clean();
             ajaxCall('DELETE', ajax_url, null, function(data, response){
                 
             });
+        });
+
+        // 处理发送消息栏
+        $chatbox_textarea.on("change keyup paste", function(event) {
+            var text_length = $$(this).val().length;
+            if(text_length > 60) {
+                $chatbox_send_btn.addClass('disabled');
+                $chatbox_send_btn.text('字数超过 60 啦');
+            }
+            else {
+                $chatbox_send_btn.removeClass('disabled');
+                $chatbox_send_btn.text('发送');
+            }
         });
     }
 
