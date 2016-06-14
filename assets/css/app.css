@@ -1,5 +1,9 @@
-.icon {
+.toolbar-icon {
     font-size: 1.5em;
+}
+.menu-icon {
+    font-size: 1.6em;
+    width: 26px;
 }
 
 .page-content .content-block {

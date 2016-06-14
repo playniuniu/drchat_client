@@ -69,7 +69,8 @@ var chatboxMod = (function(){
                 fromNickname: userMod.getNickname(),
                 messageFormat: "text",
                 messageTime: Date.now(),
-                messageBody: messageText
+                messageBody: messageText,
+                sendSmsFlag: getSendSmsFlag(),
             }
 
             // 将消息发送给远端
@@ -179,6 +180,25 @@ var chatboxMod = (function(){
             }
         }
     }
+
+    // 设置是否发送手机短信
+    function setSendSmsFlag(flag) {
+        if(flag){
+            store("send_sms_flag", "yes");
+        }
+        else {
+            store("send_sms_flag", "no");
+        }
+        
+    }
+
+    function getSendSmsFlag(){
+        console.log(store("send_sms_flag"));
+        if( store("send_sms_flag") === "no" ) {
+            return false;
+        }
+        return true;
+    }
     
     /*
      * 针对消息超时的处理函数
@@ -233,6 +253,8 @@ var chatboxMod = (function(){
     return {
         processChatBoxPage: processChatBoxPage,
         updateChatBox: updateChatBox,
+        setSendSmsFlag: setSendSmsFlag,
+        getSendSmsFlag: getSendSmsFlag,
     }
     
 }());
