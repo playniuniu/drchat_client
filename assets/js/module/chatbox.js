@@ -31,7 +31,7 @@ var chatboxMod = (function(){
         });
 
         // 处理发送消息栏
-        $chatbox_textarea.on("change keyup paste", function(event) {
+        $chatbox_textarea.on('keyup change', function(event) {
             var text_length = $$(this).val().length;
             if(text_length > 60) {
                 $chatbox_send_btn.addClass('disabled');
