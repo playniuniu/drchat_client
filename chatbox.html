@@ -20,7 +20,11 @@
     <!-- 底部栏 -->
     <div class="toolbar messagebar">
         <div class="toolbar-inner">
-            <textarea id="chatbox-textarea" placeholder="输入消息"></textarea>
+            <label class="label-switch sms-switch">
+                <input id="sms-check" type="checkbox" checked>
+                <div class="checkbox"></div>
+            </label>
+            <textarea id="chatbox-textarea" placeholder="发送短信消息"></textarea>
             <a href="#" class="link" id="chatbox-send-btn">发送</a>
         </div>
     </div>
