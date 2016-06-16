@@ -103,7 +103,6 @@ var mainApp = (function(){
         var $nick_name = pageContainer.find('#nick-name');
         var $save_btn = pageContainer.find('#save-btn');
         var $login_name = pageContainer.find('#login-name');
-        var $sms_check = pageContainer.find('#sms-check');
         
         // 处理 tab 按钮
         $tab_link.on('click', function(event) {
@@ -137,9 +136,6 @@ var mainApp = (function(){
         // 设置昵称
         $nick_name.val(userMod.getNickname());
 
-        // 设置短信发送
-        $sms_check.prop('checked', chatboxMod.getSendSmsFlag());
-
         // 处理退出按钮
         $logout_btn.on('click', function (event) {
             userMod.setLogout();
@@ -151,12 +147,6 @@ var mainApp = (function(){
             if ($nick_name.val() === '') {
                 $save_btn.addClass('disabled');
             }
-        });
-
-        // 处理短息发送按钮
-        $sms_check.on('change', function(event) {
-            // $save_btn.removeClass('disabled');
-            chatboxMod.setSendSmsFlag($sms_check.is(":checked"));
         });
 
         // 处理保存按钮

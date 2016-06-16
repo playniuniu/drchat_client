@@ -14,6 +14,7 @@ var chatboxMod = (function(){
         var $clear_btn = pageContainer.find('#clear-btn');
         var $chatbox_textarea = pageContainer.find('#chatbox-textarea');
         var $chatbox_send_btn = pageContainer.find('#chatbox-send-btn');
+        var $sms_check = pageContainer.find('#sms-check');
 
         // 初始化对话框
         initChatBox(main_app);
@@ -28,6 +29,18 @@ var chatboxMod = (function(){
             ajaxCall('DELETE', ajax_url, null, function(data, response){
                 
             });
+        });
+
+        // 处理短息发送按钮
+        $sms_check.on('change', function(event) {
+            var sms_check_status = $sms_check.is(":checked");
+            setSendSmsFlag(sms_check_status);
+            if(sms_check_status) {
+                $chatbox_textarea.attr("placeholder", "发送短信消息");
+            }
+            else {
+                $chatbox_textarea.attr("placeholder", "发送网络消息");
+            }
         });
 
         // 处理发送消息栏
@@ -48,7 +61,7 @@ var chatboxMod = (function(){
     function initChatBox(main_app) {
         // 清除 timeout 列表
         message_timeout_list = {};
-        chatbox_page_container = 
+        chatbox_page_container = null;
         
         // 初始化 Message 对话框
         chatbox_messages = main_app.messages('.messages', {
@@ -269,8 +282,6 @@ var chatboxMod = (function(){
     return {
         processChatBoxPage: processChatBoxPage,
         updateChatBox: updateChatBox,
-        setSendSmsFlag: setSendSmsFlag,
-        getSendSmsFlag: getSendSmsFlag,
     }
     
 }());
