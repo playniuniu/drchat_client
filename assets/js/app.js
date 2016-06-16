@@ -155,14 +155,14 @@ var mainApp = (function(){
 
         // 处理短息发送按钮
         $sms_check.on('change', function(event) {
-            $save_btn.removeClass('disabled');
+            // $save_btn.removeClass('disabled');
+            chatboxMod.setSendSmsFlag($sms_check.is(":checked"));
         });
 
         // 处理保存按钮
         $save_btn.on('click', function (event) {
             $save_btn.addClass('disabled');
             userMod.setNickname($nick_name.val());
-            chatboxMod.setSendSmsFlag($sms_check.is(":checked"));
         });
         
         // 更新消息列表
